@@ -289,23 +289,41 @@ to match your local timezone.
 ## Navigation
 
 ```
+🚀 Starter
+    │
+    ▼
 😊 Face
-     │
-     ▼
+    │
+    ▼
 ⏰ Time
-     │
-     ▼
+    │
+    ▼
 🌦 Weather
-     │
-     ▼
+    │
+    ▼
 🎮 Games
-     │
-     └──────────► Face
+    │
+    └──────────► 😊 Face
 ```
 
 ---
 
 # 📄 Pages
+
+## 🚀 Starter Page
+
+When the ESP32 powers on, DeskBuddy displays a startup screen before entering the main interface.
+
+### Features
+
+- 🎉 Welcome animation
+- 📱 Project name ("OkayOkay")
+- 📶 WiFi connection status
+- ⏰ Time synchronization status
+- 🌦 Weather initialization
+- 😊 Smooth transition to the Face page
+
+This provides a cleaner startup experience and lets the user know the device is initializing its services before becoming interactive.
 
 ## 😊 Face
 
