@@ -60,45 +60,49 @@ If you're outside India, update `GMT_OFFSET_SEC` inside `main.cpp` to match your
 
 ---
 
-# 🔄 User Interface Flow
+# 🖥 How to Use
 
-DeskBuddy follows a circular page navigation system.
+## Face Page
 
-```text
-Power On
-    │
-    ▼
-🚀 Splash Screen
-    │ (Auto ~2.2 s)
-    ▼
+| Action         | Result          |
+| -------------- | --------------- |
+| Tap            | Next Page       |
+| Hold 3 seconds | Cute Mode       |
+| Hold 5 seconds | Suspicious Mode |
+| Release        | Return to Idle  |
+
+---
+
+## Navigation
+
+```
+😊 Face
+     │
+     ▼
 ⏰ Time
-    │ Tap
-    ▼
+     │
+     ▼
 🌦 Weather
-    │ Tap
-    ▼
-🎮 Games Menu
-    │ Play / Exit
-    ▼
-😊 Emoji Face
-    │ Tap
-    ▼
-🚀 Splash Screen
-    │ (Auto ~2 s)
-    └──────────────► Time
+     │
+     ▼
+🎮 Games
+     │
+     └──────────► Face
 ```
 
-### Splash Screen
+---
 
-The splash screen appears:
+# 📄 Pages
 
-* Once during startup with a longer greeting.
-* Every time the user returns from the Emoji page.
-* Automatically advances to the Time page without requiring user interaction.
+## 😊 Face
 
-### Idle Mode
+Animated companion with multiple expressions.
 
-If no interaction is detected for **10 seconds** while viewing:
+---
+
+## ⏰ Time
+
+Shows
 
 * Time
 * Weather
