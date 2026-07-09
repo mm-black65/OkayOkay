@@ -1,499 +1,259 @@
-# 🌟 ESP32 Emoji Companion
+# 🌟 DeskBuddy – ESP32 Emoji Companion
 
-<p align="center">
-  <img src="https://img.shields.io/badge/ESP32-IoT-blue?style=for-the-badge&logo=espressif">
-  <img src="https://img.shields.io/badge/OLED-SSD1306-success?style=for-the-badge">
-  <img src="https://img.shields.io/badge/PlatformIO-Framework-orange?style=for-the-badge&logo=platformio">
-  <img src="https://img.shields.io/badge/C%2B%2B-Firmware-00599C?style=for-the-badge&logo=cplusplus">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge">
-</p>
-
-<p align="center">
-<b>An adorable ESP32-powered desktop companion with expressive animated eyes, WiFi connectivity, weather updates, air quality monitoring, interactive mini games, and touch-based controls—all packed into a tiny OLED display.</b>
-</p>
-
----
-
-# 📖 Table of Contents
-
-* [Overview](#-overview)
-* [Features](#-features)
-* [Demo](#-demo)
-* [Hardware](#-hardware)
-* [Pin Connections](#-pin-connections)
-* [Project Structure](#-project-structure)
-* [Installation](#-installation)
-* [Configuration](#-configuration)
-* [How to Use](#-how-to-use)
-* [Pages](#-pages)
-* [Games](#-games)
-* [Sound Effects](#-sound-effects)
-* [Libraries Used](#-libraries-used)
-* [Future Improvements](#-future-improvements)
-* [Known Limitations](#-known-limitations)
-* [Contributing](#-contributing)
-* [License](#-license)
-
----
-
-# 🌈 Overview
-
-ESP32 Emoji Companion is a fun desktop gadget inspired by digital pets and smart assistants.
-
-Using just an **ESP32**, an **SSD1306 OLED display**, **one touch sensor**, and a **passive buzzer**, it creates an expressive animated face that reacts to your touch while also acting as a smart desk assistant.
-
-It can:
-
-* 😊 Display animated emoji faces
-* ⏰ Show the current time
-* 🌦 Display live weather
-* 🌫 Monitor air quality
-* 🎮 Play four mini games
-* 🔊 Produce sound effects and alerts
-
-Everything is controlled using **a single touch button**, making the interface simple yet surprisingly powerful.
-
----
-
-# ✨ Features
-
-## 😊 Animated Emoji Face
-
-The companion continuously animates expressive eyes with smooth movements.
-
-### Idle Animations
-
-* 👀 Natural blinking
-* 🎯 Random eye movement (Saccades)
-* 🌬 Gentle breathing animation
-* 🎭 Automatic emotion changes every few seconds
-* ✨ Floating emoji particles
-
-### Available Emotions
-
-| Emoji | Mood       |
-| ----- | ---------- |
-| 😀    | Normal     |
-| 😊    | Happy      |
-| 😲    | Surprised  |
-| 😴    | Sleepy     |
-| 😠    | Angry      |
-| 😢    | Sad        |
-| 🤩    | Excited    |
-| ❤️    | Love       |
-| 🤨    | Suspicious |
-| 🥺    | Cute       |
-
----
-
-## 🌐 Smart Connectivity
-
-* WiFi support
-* NTP Time Synchronization
-* Automatic Weather Updates
-* OpenWeatherMap API
-* Air Quality Index Monitoring
-
----
-
-## ⏰ Smart Clock
-
-Displays
-
-* Current Time
-* Current Date
-* AM / PM
-* WiFi Status
-* Time Sync Status
-
----
-
-## 🌦 Weather Information
-
-Displays
-
-* 🌡 Temperature
-* 🥵 Feels Like Temperature
-* 💧 Humidity
-* ☁ Weather Description
-* 🌫 Air Quality Index
-
-Weather updates refresh automatically every **10 minutes**.
-
----
-
-## 🚨 Smart Alerts
-
-The buzzer automatically alerts when:
-
-* 🌧 Rain starts
-* ⛈ Storm begins
-* 🌫 AQI becomes Poor
-* 😷 AQI becomes Very Poor
-
-The alert only plays once until conditions improve.
-
----
-
-## 🎮 Mini Games
-
-Four complete games are included.
-
-| Game            | Description                 |
-| --------------- | --------------------------- |
-| 🦖 Dino Runner  | Jump over obstacles         |
-| 🐦 Flappy Bird  | Fly through pipes           |
-| 🔨 Whack-a-Mole | Tap while mole is visible   |
-| 🎵 Rhythm Tap   | Tap perfectly with the beat |
-
-High scores remain until the board restarts.
-
----
-
-# 🎥 Demo
-
-> *(Add screenshots or GIFs here)*
-
-Example:
-
-```
-images/
-│
-├── face.gif
-├── weather.jpg
-├── games.gif
-```
+An interactive desktop companion powered by an ESP32 that brings personality to your workspace. Featuring expressive animated eyes, a smart splash screen, live time, weather and air quality updates, audio feedback, and four touch-controlled mini-games—all displayed on a 128×64 OLED and controlled using a single touch sensor.
 
 ---
 
 # 🛠 Hardware
 
-| Component      | Details            |
-| -------------- | ------------------ |
-| ESP32 DevKit   | ESP32-WROOM        |
-| OLED Display   | SSD1306 128×64 I2C |
-| Touch Sensor   | TTP223             |
-| Passive Buzzer | GPIO25             |
-| USB Cable      | Programming        |
+| Component           | Notes                                           |
+| ------------------- | ----------------------------------------------- |
+| ESP32 Dev Board     | Generic ESP32-WROOM (`esp32dev`)                |
+| SSD1306 OLED        | 128×64 I²C Display (SDA = GPIO21, SCL = GPIO22) |
+| TTP223 Touch Sensor | Digital Output, GPIO4                           |
+| Passive Buzzer      | GPIO25                                          |
+
+> **Note:** The ESP32 only supports **2.4 GHz WiFi** networks. 5 GHz networks are not supported.
 
 ---
 
-# 🔌 Pin Connections
-
-| Component      | ESP32 Pin |
-| -------------- | --------- |
-| OLED SDA       | GPIO21    |
-| OLED SCL       | GPIO22    |
-| Touch Sensor   | GPIO4     |
-| Passive Buzzer | GPIO25    |
-
----
-
-# 📂 Project Structure
+# 📁 Project Structure
 
 ```text
-ESP32-Emoji-Companion
-│
-├── platformio.ini
-│
-├── src
-│   └── main.cpp
-│
-├── Eye.h
-│
-├── README.md
-│
-└── images
-    ├── face.gif
-    ├── weather.jpg
-    └── games.gif
+├── platformio.ini        # PlatformIO configuration
+└── src/
+    ├── main.cpp          # Core application, page flow, touch handling
+    ├── Eye.h             # Eye animation engine and moods
+    ├── Splash.h          # Boot greeting and splash screen
+    ├── Clock.h           # NTP clock
+    ├── Weather.h         # Weather & AQI fetching
+    └── Games.h           # Game menu and all mini-games
 ```
 
----
-
-# ⚙ Installation
-
-## 1. Clone Repository
-
-```bash
-git clone https://github.com/yourusername/ESP32-Emoji-Companion.git
-```
+All source files are located inside the `src/` directory.
 
 ---
 
-## 2. Open in PlatformIO
+# ⚙ Setup
 
-Open the project folder in Visual Studio Code with PlatformIO installed.
+### WiFi Configuration
 
----
-
-## 3. Install Libraries
-
-PlatformIO will automatically install required libraries.
-
----
-
-## 4. Configure WiFi
-
-Inside **main.cpp**
+Edit **main.cpp**
 
 ```cpp
-const char* WIFI_SSID = "YOUR_WIFI";
-const char* WIFI_PASSWORD = "YOUR_PASSWORD";
+const char* WIFI_SSID     = "YOUR_WIFI_SSID";
+const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";
 ```
 
----
+### Weather Configuration
 
-## 5. Configure Weather API
+Edit **Weather.h**
 
 ```cpp
-const char* OWM_API_KEY = "YOUR_API_KEY";
+const char* OWM_API_KEY  = "YOUR_OPENWEATHERMAP_API_KEY";
 const char* WEATHER_CITY = "Ghaziabad,IN";
 ```
 
-OpenWeatherMap API keys may require several hours before activation.
+A newly created OpenWeatherMap API key may take several hours (sometimes up to 24 hours) before it becomes active.
+
+If you're outside India, update `GMT_OFFSET_SEC` inside `main.cpp` to match your local timezone.
 
 ---
 
-## 6. Upload
+# 🔄 User Interface Flow
 
-Connect the ESP32 and click **Upload**.
+DeskBuddy follows a circular page navigation system.
 
----
-
-# ⚙ Configuration
-
-If you're outside India, update
-
-```cpp
-GMT_OFFSET_SEC
-```
-
-to match your local timezone.
-
----
-
-# 🖥 How to Use
-
-## Face Page
-
-| Action         | Result          |
-| -------------- | --------------- |
-| Tap            | Next Page       |
-| Hold 3 seconds | Cute Mode       |
-| Hold 5 seconds | Suspicious Mode |
-| Release        | Return to Idle  |
-
----
-
-## Navigation
-
-```
-😊 Face
-     │
-     ▼
+```text
+Power On
+    │
+    ▼
+🚀 Splash Screen
+    │ (Auto ~2.2 s)
+    ▼
 ⏰ Time
-     │
-     ▼
+    │ Tap
+    ▼
 🌦 Weather
-     │
-     ▼
-🎮 Games
-     │
-     └──────────► Face
+    │ Tap
+    ▼
+🎮 Games Menu
+    │ Play / Exit
+    ▼
+😊 Emoji Face
+    │ Tap
+    ▼
+🚀 Splash Screen
+    │ (Auto ~2 s)
+    └──────────────► Time
 ```
 
----
+### Splash Screen
 
-# 📄 Pages
+The splash screen appears:
 
-## 😊 Face
+* Once during startup with a longer greeting.
+* Every time the user returns from the Emoji page.
+* Automatically advances to the Time page without requiring user interaction.
 
-Animated companion with multiple expressions.
+### Idle Mode
 
----
-
-## ⏰ Time
-
-Shows
+If no interaction is detected for **10 seconds** while viewing:
 
 * Time
-* Date
+* Weather
+* Games Menu
+
+DeskBuddy automatically returns to the Emoji page, acting as a screensaver.
+
+This timeout is disabled while playing a game.
+
+---
+
+# 😊 Emoji Face
+
+The Emoji page is the heart of DeskBuddy, bringing the companion to life through smooth animations and expressive emotions.
+
+## Idle Animations
+
+* 👀 Natural blinking
+* 🎯 Random eye movements (Saccades)
+* 🌬 Gentle breathing animation
+* 🎭 Automatic mood changes every 6–15 seconds
+* ✨ Floating emotion particles
+
+### Available Emotions
+
+* 😀 Normal
+* 😊 Happy
+* 😲 Surprised
+* 😴 Sleepy
+* 😠 Angry
+* 😢 Sad
+* 🤩 Excited
+* ❤️ Love
+* 🤨 Suspicious
+
+Each emotion uses its own eye shape, eyelid style, and optional particle effects.
+
+## Touch Gestures
+
+| Gesture         | Action                      |
+| --------------- | --------------------------- |
+| Tap             | Continue to Splash → Time   |
+| Hold >3 seconds | Cute Mode                   |
+| Hold >5 seconds | Suspicious / Side-eye Mode  |
+| Release         | Return to normal animations |
+
+---
+
+# ⏰ Smart Clock
+
+The Time page synchronizes with an NTP server over WiFi.
+
+Displays:
+
+* Current Time (12-hour format)
 * AM / PM
-* WiFi Status
+* Current Date
+
+If WiFi is unavailable, helpful status messages such as **"WiFi Not Connected"** or **"Syncing Time..."** are displayed.
 
 ---
 
-## 🌦 Weather
+# 🌦 Weather & Air Quality
 
-Shows
+Weather information is retrieved from **OpenWeatherMap** every 10 minutes (or immediately the first time the page is opened).
 
-* Temperature
-* Humidity
-* Feels Like
-* Weather Condition
-* Air Quality
+The layout is intentionally minimal and easy to read.
 
----
+Displayed information includes:
 
-## 🎮 Games Menu
-
-### Tap
-
-Move to next game.
-
-### Hold (~1.2s)
-
-Start selected game.
+* 📍 City
+* ☁ Weather Condition
+* 🌡 Temperature
+* 🌫 Air Quality (Good → Very Poor)
 
 ---
 
-# 🎮 Games
+# 🔊 Audio Feedback
 
-## 🦖 Dino Runner
+DeskBuddy provides sound feedback through the passive buzzer.
 
-Tap to jump over obstacles.
+### Touch Feedback
 
-As the score increases:
+Every successful tap plays a pleasant two-note confirmation sound.
 
-* Speed increases
-* Difficulty increases
+### Weather Alerts
 
----
+A warning melody automatically plays when:
 
-## 🐦 Flappy Bird
+* Rain begins
+* Drizzle begins
+* Thunderstorms begin
+* AQI becomes Poor
+* AQI becomes Very Poor
 
-Tap to flap upward.
-
-Avoid hitting:
-
-* Pipes
-* Ground
-* Ceiling
+The alert only triggers once whenever conditions change, preventing repeated notifications.
 
 ---
 
-## 🔨 Whack-a-Mole
+# 🎮 Mini Games
 
-Tap only while the mole is visible.
+All games are designed around a single touch button.
 
-Miss five times and the game ends.
+## Controls
 
----
+### Games Menu
 
-## 🎵 Rhythm Tap
+| Gesture       | Action                 |
+| ------------- | ---------------------- |
+| Tap           | Move through game list |
+| Hold (~1.2 s) | Start highlighted game |
+| Exit to Face  | Returns to Emoji page  |
 
-Listen to the buzzer.
+Best scores are remembered until the ESP32 is restarted.
 
-Tap exactly on the beat.
+### During Gameplay
 
-Scoring:
+* Tap performs the game's primary action.
+* Holding while actively playing has no special function and simply counts as a normal tap when released.
+* After Game Over:
 
-* PERFECT
-* GOOD
-* MISS
-
-Game ends after **16 beats**.
-
----
-
-# 🔊 Sound Effects
-
-* Touch Feedback
-* Menu Navigation
-* Weather Alert
-* AQI Alert
-* Game Sounds
-* Rhythm Beat
+  * Tap → Restart
+  * Hold (~1.5 s) → Return to Games Menu
 
 ---
 
-# 📚 Libraries Used
+## Included Games
 
-* WiFi
-* HTTPClient
-* ArduinoJson
-* Adafruit SSD1306
-* Adafruit GFX
-* Wire
-* time.h
-
----
-
-# 🚀 Future Improvements
-
-* 💾 Save scores using Preferences
-* 📈 Weather Forecast API
-* 🔋 Battery Monitoring
-* 📱 Bluetooth App
-* 🌈 RGB Mood Lighting
-* 🤖 TinyML Emotion Recognition
-* 🎤 Voice Commands
-* 🗓 Calendar Reminders
-* 📊 Activity Tracker
-* 🎵 Better Audio Engine
-* 💤 Sleep Mode
-* 📡 OTA Firmware Updates
+| Game            | Controls          | Description                                                                 |
+| --------------- | ----------------- | --------------------------------------------------------------------------- |
+| 🦖 Dino Runner  | Tap to Jump       | Avoid incoming obstacles that gradually increase in speed.                  |
+| 🐦 Flappy Bird  | Tap to Flap       | Fly through randomly generated pipe gaps without crashing.                  |
+| 🔨 Whack-a-Mole | Tap While Visible | Hit the mole before it disappears. Five misses end the game.                |
+| 🎵 Rhythm Tap   | Tap on Beat       | Match the buzzer rhythm for PERFECT, GOOD, or MISS judgments over 16 beats. |
 
 ---
 
 # ⚠ Known Limitations
 
-* High scores reset after reboot.
-* Weather alerts only check current weather.
-* Some buzzer sounds still use `delay()`.
-* Requires WiFi for weather and time synchronization.
+* Weather alerts only use current conditions and do not predict future weather.
+* High scores are stored only in RAM and reset after reboot.
+* Some buzzer sounds still use blocking `delay()` calls, which may introduce slight timing delays.
+* The 10-second idle timeout can be adjusted by changing the `IDLE_TO_FACE_MS` constant inside `main.cpp`.
 
 ---
 
-# 🤝 Contributing
+# 🚀 Future Improvements
 
-Contributions are welcome!
-
-If you have ideas for:
-
-* New games
-* Better animations
-* New emotions
-* UI improvements
-* Performance optimizations
-
-Feel free to fork the project and submit a Pull Request.
-
----
-
-# ⭐ Support
-
-If you enjoyed this project,
-
-🌟 **Give it a star on GitHub!**
-
-It really helps the project grow.
-
----
-
-# 📜 License
-
-This project is licensed under the **MIT License**.
-
----
-
-# 👨‍💻 Author
-
-**Mahi Ahalawat**
-
-Robotics & AI Engineering Student
-
-Interested in:
-
-* 🤖 Robotics
-* 🧠 Edge AI
-* 📷 Computer Vision
-* 📡 IoT
-* 🔬 Embedded Systems
-
----
-
-<p align="center">
-Made with ❤️ using ESP32, PlatformIO, and a lot of ☕
-</p>
+* Persistent high scores using Preferences/EEPROM
+* Weather forecast support
+* Battery monitoring
+* Bluetooth companion app
+* TinyML-powered emotion recognition
+* Voice notifications
+* Additional mini-games
+* OTA firmware updates
+* RGB mood lighting
+* Animated boot logo
